@@ -30,7 +30,6 @@
       overflow: hidden;
     }
 
-    /* Gold corner borders */
     .card::before, .card::after,
     .card .corner-tl, .card .corner-br {
       content: '';
@@ -78,7 +77,6 @@
       text-shadow: 0 0 40px rgba(212, 168, 67, 0.3);
     }
 
-    /* Decorative divider */
     .divider {
       display: flex;
       align-items: center;
@@ -114,7 +112,6 @@
       flex-shrink: 0;
     }
 
-    /* QR code with gold bracket corners */
     .qr-wrapper {
       position: relative;
       display: inline-block;
@@ -122,7 +119,6 @@
       margin-bottom: 28px;
     }
 
-    /* Four gold bracket corners */
     .qr-wrapper::before, .qr-wrapper::after,
     .qr-wrapper .br, .qr-wrapper .bl {
       content: '';
@@ -135,7 +131,6 @@
     .qr-wrapper .bl      { bottom: 0; left: 0;  border-bottom: 2px solid #c9a84c; border-left:  2px solid #c9a84c; }
     .qr-wrapper .br      { bottom: 0; right: 0; border-bottom: 2px solid #c9a84c; border-right: 2px solid #c9a84c; }
 
-    /* Dot accents at bracket midpoints */
     .qr-wrapper .dot {
       position: absolute;
       width: 4px; height: 4px;
@@ -155,7 +150,6 @@
     }
     #qrcode canvas, #qrcode img { display: block; border-radius: 4px; }
 
-    /* Bottom name pill */
     .name-pill {
       display: inline-block;
       background: #d4a843;
