@@ -209,7 +209,6 @@
       correctLevel: QRCode.CorrectLevel.M
     });
 
-    // Build a downloadable vCard link
     const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
     document.getElementById("vcardLink").href = URL.createObjectURL(blob);
   </script>
