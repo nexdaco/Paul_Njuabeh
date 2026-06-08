@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paul Njuabeh — Contact Card</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+      letter-spacing: -1px;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 28px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #fff;
+      transition: background 0.2s;
+    }
+
+    .contact-item:hover { background: rgba(255,255,255,0.13); }
+
+    .contact-item .icon {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item .label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .contact-item .value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 0 28px;
+    }
+
+    .qr-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    #qrcode {
+      display: inline-block;
+      background: #fff;
+      padding: 14px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    #qrcode canvas, #qrcode img { display: block; border-radius: 6px; }
+
+    .save-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 13px 32px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(102, 126, 234, 0.5);
+    }
+
+    .hint {
+      margin-top: 14px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="avatar">PN</div>
+    <h1>Paul Njuabeh</h1>
+    <p class="tagline">Contact Card</p>
+
+    <div class="contact-items">
+      <a class="contact-item" href="tel:+16512799860">
+        <span class="icon">📞</span>
+        <div>
+          <div class="label">Phone</div>
+          <div class="value">+1 (651) 279-9860</div>
+        </div>
+      </a>
+      <a class="contact-item" href="mailto:paulnjuabeh@gmail.com">
+        <span class="icon">✉️</span>
+        <div>
+          <div class="label">Email</div>
+          <div class="value">paulnjuabeh@gmail.com</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="qr-label">Scan to save contact</p>
+    <div id="qrcode"></div>
+
+    <a class="save-btn" id="vcardLink" download="PaulNjuabeh.vcf">
+      ⬇ Save to Contacts
+    </a>
+    <p class="hint">Tap above or scan the QR code with your camera</p>
+  </div>
+
+  <script>
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:Paul Njuabeh",
+      "N:Njuabeh;Paul;;;",
+      "TEL;TYPE=CELL,VOICE:+16512799860",
+      "EMAIL;TYPE=INTERNET:paulnjuabeh@gmail.com",
+      "END:VCARD"
+    ].join("\r\n");
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: vcard,
+      width: 200,
+      height: 200,
+      colorDark: "#1a1a2e",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    // Build a downloadable vCard link
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+    document.getElementById("vcardLink").href = URL.createObjectURL(blob);
+  </script>
+</body>
+</html>
